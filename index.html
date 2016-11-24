@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Montréal.375</title>
+    <link href="css/ebk_styles.css" rel="stylesheet" type="text/css">
+    <script  src="caman.full.min.js"></script>
+    <script  src="jquery-1.11.1.min.js"></script>
+    <script  src="three.min.js"></script>
+    <script  src="dat.gui.min.js"></script>
+    <script  src="OrbitControls.js"></script>
+    <script  src="ebika.js"></script>
+    <script src="js/ebkWebAudio.js"></script>
+    <script src="js/ebkMIDI.js"></script>
+    <script src="js/ebkClient.js"></script>
+    <script src="js/rendering.js"></script>
+
+       <style>
+
+
+           body {
+               margin-left: 0px;
+               margin-top: 0px;
+               margin-right: 0px;
+               margin-bottom: 0px;
+
+               background-color: #fff;
+               color: #111;
+               overflow: hidden;
+               font-family: Monospace;
+               font-size: 13px;
+           }
+
+
+
+           #info {
+               position: absolute;
+               top: 0px; width: 100%;
+               padding: 5px;
+               text-align: center;
+           }
+           a {
+
+               color: #0080ff;
+               text-decoration: none;
+           }
+           a:hover {
+               color: #f00;
+           }
+           #footer { width: 100%; margin: 2em auto; text-align: center; position: absolute; bottom: 0 }
+           strong { color: red }
+
+       </style>
+
+   </head>
+
+
+   <body>
+
+   <!-- skybox shaders -->
+   <script type="x-shader/x-vertex" id="sky-vertex">
+varying vec3 vWorldPosition;
+
+void main() {
+    vec4 worldPosition = modelMatrix * vec4( position, 1.0 );
+    vWorldPosition = worldPosition.xyz;
+
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+}
+</script>
+
+   <script type="x-shader/x-fragment" id="sky-fragment">
+uniform vec3 topColor;
+uniform vec3 bottomColor;
+uniform float offset;
+uniform float exponent;
+
+varying vec3 vWorldPosition;
+
+void main() {
+    float h = normalize( vWorldPosition + offset ).y;
+    gl_FragColor = vec4( mix( bottomColor, topColor, max( pow( h, exponent ), 0.0 ) ), 1.0 );
+}
+</script>
+
+
+
+
+
+   <script id="vertexShader" type="x-shader/x-vertex">
+uniform vec3 viewVector;
+uniform float c;
+uniform float p;
+varying float intensity;
+void main()
+{
+    vec3 vNormal = normalize( normalMatrix * normal );
+	vec3 vNormel = normalize( normalMatrix * viewVector );
+	intensity = pow( c - dot(vNormal, vNormel), p );
+
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+}
+</script>
+
+   <!-- fragment shader a.k.a. pixel shader -->
+   <script id="fragmentShader" type="x-shader/x-vertex">
+uniform vec3 glowColor;
+varying float intensity;
+void main()
+{
+	vec3 glow = glowColor * intensity;
+    gl_FragColor = vec4( glow, 1.0 );
+}
+</script>
+
+   <!-- /skybox shaders -->
+
+   <div id ="wrapper">
+
+      <div id ="container">
+
+      </div>
+      <div id ="buttonsBottomBar" class ="center">
+          <table border="0" class ="center">
+              <tr>
+                  <td> <button class="button"  type="button" onclick="exportImagel()">  Pause </button></td>
+                  <td> <button class="button"  type="button" onclick="rePlay()">  Replay </button></td>
+                  <td> <button class="button"  type="button"    onclick="saveAsImage()">  saveLink </button></td>
+
+              </tr>
+          </table>
+      </div>
+  </div>
+
+
+   </body>
+
+
+<script>
+
+    renderingExec();
+</script>
+
+
+   </html>
+
+
