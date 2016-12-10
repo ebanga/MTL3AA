@@ -1,0 +1,67 @@
+
+/**Module: Ebika.js
+* @Modifications: 2014-10-12-1100 Jean-Jacques Ebanga
+* @author:      Jean-Jacques Ebanga
+* @Description: Module des styles
+* @Creation :   2011-02-01
+
+*/
+
+
+#wrapper {
+    width :1440px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5px;
+    background-color: #000000;
+}
+
+
+
+#container  {
+
+    background-color: #000000;
+}
+
+
+
+#buttonsBottomBar {
+    height: 100px;
+    width:640px;
+    background-color: #000000;
+
+}
+
+.center {
+    margin: auto;
+    width: auto;
+
+
+}
+
+#footer {
+    height: 10px;
+    background-color: #a0ffa8;
+}
+
+
+.button {
+    background-color: #afcd05; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+
+.button:hover{
+    background-color: #cdbb21
+
+}
