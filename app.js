@@ -5,10 +5,11 @@ var     express = require('express'),
     app     = express (),
     http    = require('http').createServer(app);
 
-var ebanga = "ebanga4444";
+
 
 app.use(express.static('/lib'));
 app.use(express.static('lib/media/'));
+app.use(express.static('lib/map/'));
 app.use(express.static('../lib/js/ebk'));
 app.use(express.static('../lib/js/jquery'));
 app.use(express.static('../lib/js/threejs'));
